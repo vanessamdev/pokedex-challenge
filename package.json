@@ -1,0 +1,22 @@
+{
+  "name": "pokedex-api",
+  "version": "1.0.0",
+  "description": "API REST para gerenciamento de Treinadores e Pokémon",
+  "scripts": {
+    "offline": "serverless offline",
+    "deploy": "serverless deploy",
+    "deploy:prod": "serverless deploy --stage prod",
+    "remove": "serverless remove",
+    "logs": "serverless logs -f api --tail"
+  },
+  "devDependencies": {
+    "serverless": "^3.38.0",
+    "serverless-offline": "^13.3.0",
+    "serverless-python-requirements": "^6.0.0"
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
