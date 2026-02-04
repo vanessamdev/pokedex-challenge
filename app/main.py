@@ -1,10 +1,16 @@
 """
 Módulo principal da API Pokédex.
 Define os endpoints REST e configurações do FastAPI.
+
+Deploy:
+- Vercel: usa o app FastAPI diretamente via api/index.py
+- AWS Lambda: usa o handler Mangum (comentado abaixo)
 """
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from mangum import Mangum
+
+# ============ IMPORT AWS LAMBDA (comentado para Vercel) ============
+# from mangum import Mangum
 
 from app.models import (
     TrainerCreate, TrainerUpdate, Trainer,
@@ -25,6 +31,7 @@ app = FastAPI(
 )
 
 # CORS - permite requisições do frontend
+# Em produção na Vercel, frontend e backend estão no mesmo domínio
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -116,5 +123,7 @@ def battle(data: BattleRequest, service: BattleService = Depends(get_battle_serv
     return service.battle(data)
 
 
-# Handler para AWS Lambda
-handler = Mangum(app)
+# ============ HANDLER AWS LAMBDA (comentado para Vercel) ============
+# Descomente para deploy na AWS Lambda com Serverless Framework
+# from mangum import Mangum
+# handler = Mangum(app)

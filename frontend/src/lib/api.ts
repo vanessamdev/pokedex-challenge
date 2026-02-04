@@ -1,4 +1,10 @@
-const API_URL = 'http://localhost:3000'
+// ============ CONFIGURAÇÃO ORIGINAL (desenvolvimento local) ============
+// const API_URL = 'http://localhost:3000'
+
+// ============ CONFIGURAÇÃO VERCEL (produção) ============
+// Em produção na Vercel, a API está no mesmo domínio (string vazia)
+// Em desenvolvimento local, usa localhost:8000 (uvicorn)
+const API_URL = process.env.NEXT_PUBLIC_API_URL || ''
 
 // Types
 export interface Trainer {

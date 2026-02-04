@@ -71,6 +71,8 @@ Plataforma de gerenciamento de Pokémon inspirada no conceito de uma Pokédex, p
 
 ```
 pokedex-challenge/
+├── api/                              # Entry point Vercel
+│   └── index.py                      # Exporta FastAPI app
 ├── app/                              # Backend Python (SOLID)
 │   ├── __init__.py
 │   ├── main.py                       # Endpoints REST (Controller)
@@ -107,7 +109,8 @@ pokedex-challenge/
 │   ├── etapa-3-dynamodb.md           # Etapa 3 - DynamoDB
 │   ├── etapa-4-frontend.md           # Etapa 4 - Frontend
 │   └── iniciando-projeto.md          # Guia de instalação
-├── serverless.yml                    # Config AWS Lambda
+├── serverless.yml                    # Config AWS Lambda (alternativo)
+├── vercel.json                       # Config Vercel (deploy principal)
 ├── requirements.txt                  # Deps Python
 ├── README.md                         # Este arquivo
 ├── start.ps1 / start.sh              # Scripts de inicialização
@@ -126,7 +129,33 @@ pokedex-challenge/
 
 ---
 
-## 🚀 Instalação
+## 🚀 Deploy
+
+### Vercel (Recomendado para fins acadêmicos)
+
+```bash
+# Instalar Vercel CLI
+npm i -g vercel
+
+# Login na Vercel
+vercel login
+
+# Deploy (na raiz do projeto)
+vercel
+```
+
+A Vercel irá detectar automaticamente o `vercel.json` e fazer o deploy do frontend Next.js + backend FastAPI.
+
+### AWS Lambda (Produção)
+
+Descomente as configurações no `app/main.py` e execute:
+```bash
+serverless deploy
+```
+
+---
+
+## 🚀 Instalação Local
 
 ### Pré-requisitos
 
@@ -186,23 +215,28 @@ chmod +x start.sh
 
 **Terminal 1 - Backend:**
 ```bash
-uvicorn app.main:app --reload --port 3000
+uvicorn app.main:app --reload --port 8000
 ```
 
 **Terminal 2 - Frontend:**
 ```bash
 cd frontend
-npm run dev -- -p 3001
+npm run dev
+```
+
+Criar `frontend/.env.local`:
+```
+NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
 ### Acessar
 
 | Serviço | URL |
 |---------|-----|
-| Frontend | http://localhost:3001 |
-| Backend API | http://localhost:3000 |
-| Swagger Docs | http://localhost:3000/docs |
-| ReDoc | http://localhost:3000/redoc |
+| Frontend | http://localhost:3000 |
+| Backend API | http://localhost:8000 |
+| Swagger Docs | http://localhost:8000/docs |
+| ReDoc | http://localhost:8000/redoc |
 
 ---
 
